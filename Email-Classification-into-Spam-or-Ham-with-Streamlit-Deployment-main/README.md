@@ -1,4 +1,4 @@
-## 📨 Email Spam Classification using NLP & SVM
+##  Email Spam Classification using NLP & SVM
 
 A machine learning project that classifies email or SMS messages as **Spam** or **Ham (Not Spam)** using **Natural Language Processing (NLP)** and a **Support Vector Machine (SVM)** model.
 Deployed as an **interactive Streamlit web app** for real-time message classification.
@@ -13,13 +13,13 @@ It also includes NLP-based preprocessing (tokenization, stopword removal, and le
 ---
 
 ###  Features
-
-✅ Classifies any text message as **Spam** or **Ham**
-✅ Uses **TF-IDF** and **SVM (linear/RBF kernels)** for robust classification
-✅ Implements **GridSearchCV** for hyperparameter tuning
-✅ Provides **confidence score (%)** for predictions in Streamlit
-✅ Visualizes results with a **Confusion Matrix**
-✅ Simple, clean, and deployable interface
+ 
+ Classifies any text message as **Spam** or **Ham**
+ Uses **TF-IDF** and **SVM (linear/RBF kernels)** for robust classification
+ Implements **GridSearchCV** for hyperparameter tuning
+ Provides **confidence score (%)** for predictions in Streamlit
+ Visualizes results with a **Confusion Matrix**
+ Simple, clean, and deployable interface
 
 ---
 
@@ -72,7 +72,7 @@ streamlit run app.py
 ```
 
 Open your browser at:
-👉 **[http://localhost:8501](http://localhost:8501)**
+ **[http://localhost:8501](http://localhost:8501)**
 
 ---
 
@@ -87,7 +87,7 @@ Open your browser at:
 
 ---
 
-### 📊 Model Performance
+###  Model Performance
 
 | Metric    | Score                    |
 | --------- | ------------------------ |

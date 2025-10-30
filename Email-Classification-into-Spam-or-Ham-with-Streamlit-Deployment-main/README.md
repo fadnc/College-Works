@@ -163,14 +163,3 @@ Contains 5,574 labeled messages — “ham” (legitimate) or “spam” (unwant
 * Compare with deep learning models (LSTM, BERT)
 
 ---
-
-### 👨‍💻 Author
-
-**Fadhil**
-📧 [Your Email Here]
-💼 MSc Computer Science | Data & ML Enthusiast
-🌐 [LinkedIn Profile or GitHub Link]
-
----
-
-Would you like me to make this **README auto-generate screenshots** (like the confusion matrix and Streamlit UI preview placeholders) — so it looks even more professional on GitHub?

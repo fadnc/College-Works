@@ -161,6 +161,8 @@ Contains 5,574 labeled messages — “ham” (legitimate) or “spam” (unwant
 - Learned model deployment with Streamlit for real-time inference.  
 - Enhanced understanding of performance metrics like precision, recall, and F1-score.
 
+ ---
+ 
 ###  Future Improvements
 
 * Add multilingual spam detection

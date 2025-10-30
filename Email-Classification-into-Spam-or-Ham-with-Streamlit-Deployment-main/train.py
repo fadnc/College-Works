@@ -1,84 +1,72 @@
 import pandas as pd
 import re
-import nltk
-from nltk.corpus import stopwords
-from nltk.stem import WordNetLemmatizer
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.svm import SVC
-from sklearn.metrics import classification_report, accuracy_score, confusion_matrix
-import seaborn as sns
-import matplotlib.pyplot as plt
 import joblib
+import csv
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.svm import LinearSVC
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
 
 # Step 1: Load dataset
-df = pd.read_csv(
-    r"C:\Users\ncfad\Downloads\SMSSpamCollection",
-    sep='\t',
-    header=None,
-    names=['label', 'message']
-)
+df = pd.read_csv(r"C:\Users\ncfad\Downloads\SMSSpamCollection", sep='\t', header=None, names=['label', 'message'])
 
-# Step 2: Download NLP resources
-nltk.download('stopwords')
-nltk.download('wordnet')
-
-stop_words = set(stopwords.words('english'))
-lemmatizer = WordNetLemmatizer()
-
-# Step 3: Text cleaning function
+# Step 2: Preprocess the text
 def clean_text(text):
     text = text.lower()
-    text = re.sub(r'\W', ' ', text)          # Remove non-alphanumeric
-    text = re.sub(r'\s+', ' ', text)         # Remove extra spaces
-    words = text.split()
-    words = [lemmatizer.lemmatize(w) for w in words if w not in stop_words]
-    return ' '.join(words)
+    text = re.sub(r'\W', ' ', text)
+    text = re.sub(r'\s+', ' ', text)
+    return text.strip()
 
 df['clean_message'] = df['message'].apply(clean_text)
 df['label_num'] = df['label'].map({'ham': 0, 'spam': 1})
 
-# Step 4: Split train/test
-X_train, X_test, y_train, y_test = train_test_split(
-    df['clean_message'], df['label_num'], test_size=0.2, random_state=42
-)
+# Step 3: Train-test split
+X_train, X_test, y_train, y_test = train_test_split(df['clean_message'], df['label_num'], test_size=0.2, random_state=42)
 
-# Step 5: TF-IDF vectorization
-vectorizer = TfidfVectorizer(max_features=5000, stop_words='english')
+# Step 4: TF-IDF Vectorization
+vectorizer = TfidfVectorizer(stop_words='english', max_features=5000)
 X_train_tfidf = vectorizer.fit_transform(X_train)
 X_test_tfidf = vectorizer.transform(X_test)
 
-
-# Step 6: SVM + Hyperparameter Tuning
-param_grid = {
-    'C': [0.1, 1, 10],
-    'kernel': ['linear', 'rbf'],
-    'gamma': ['scale', 'auto']
+# Step 5: Train Models
+models = {
+    "Naive Bayes": MultinomialNB(),
+    "SVM": LinearSVC(random_state=42)
 }
 
-grid = GridSearchCV(SVC(probability=True, random_state=42), param_grid, cv=5, n_jobs=-1, verbose=1)
-grid.fit(X_train_tfidf, y_train)
+results = []
+metrics_dict = {}
 
-best_model = grid.best_estimator_
-print("\nBest Parameters:", grid.best_params_)
+for name, model in models.items():
+    model.fit(X_train_tfidf, y_train)
+    y_pred = model.predict(X_test_tfidf)
 
+    acc = accuracy_score(y_test, y_pred)
+    prec = precision_score(y_test, y_pred)
+    rec = recall_score(y_test, y_pred)
+    f1 = f1_score(y_test, y_pred)
+    cm = confusion_matrix(y_test, y_pred)
 
-# Step 7: Evaluation
-y_pred = best_model.predict(X_test_tfidf)
-print("\nAccuracy:", accuracy_score(y_test, y_pred))
-print("\nClassification Report:\n", classification_report(y_test, y_pred))
+    results.append([name, round(acc * 100, 2), round(prec, 2), round(rec, 2), round(f1, 2)])
+    metrics_dict[name] = {"accuracy": acc, "confusion_matrix": cm}
 
-# Confusion Matrix Visualization
-cm = confusion_matrix(y_test, y_pred)
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-plt.title("Confusion Matrix")
-plt.xlabel("Predicted")
-plt.ylabel("Actual")
-plt.show()
-
-
-# Step 8: Save model and vectorizer
-joblib.dump(best_model, 'spam_classifier_model.pkl')
+# Step 6: Save Best Model (SVM)
+best_model = "SVM"
+joblib.dump(models[best_model], 'spam_classifier_model.pkl')
 joblib.dump(vectorizer, 'tfidf_vectorizer.pkl')
 
-print("\nModel and vectorizer saved successfully.")
+# Save Metrics and Spam Text
+joblib.dump(metrics_dict, 'model_metrics.pkl')
+spam_text = " ".join(df[df['label_num'] == 1]['clean_message'].values)
+joblib.dump(spam_text, 'spam_words.pkl')
+
+# Step 7: Log Experiments (CSV)
+with open("experiment_log.csv", "a", newline="") as f:
+    writer = csv.writer(f)
+    for row in results:
+        writer.writerow(row)
+
+# Display summary
+summary = pd.DataFrame(results, columns=["Model", "Accuracy", "Precision", "Recall", "F1-Score"])
+print(summary)

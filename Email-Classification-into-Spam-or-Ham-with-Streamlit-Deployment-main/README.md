@@ -5,14 +5,14 @@ Deployed as an **interactive Streamlit web app** for real-time message classific
 
 ---
 
-### 🧠 Project Overview
+###  Project Overview
 
 This project leverages **TF-IDF vectorization** for text feature extraction and **Support Vector Machines (SVM)** for classification.
 It also includes NLP-based preprocessing (tokenization, stopword removal, and lemmatization) to clean text data and improve accuracy.
 
 ---
 
-### 🚀 Features
+###  Features
 
 ✅ Classifies any text message as **Spam** or **Ham**
 ✅ Uses **TF-IDF** and **SVM (linear/RBF kernels)** for robust classification
@@ -23,11 +23,11 @@ It also includes NLP-based preprocessing (tokenization, stopword removal, and le
 
 ---
 
-### 🧩 Tech Stack
+###  Tech Stack
 
 | Component          | Technology                                              |
 | ------------------ | ------------------------------------------------------- |
-| Language           | Python 🐍                                               |
+| Language           | Python                                                  |
 | Libraries          | scikit-learn, pandas, nltk, seaborn, matplotlib, joblib |
 | Model              | Support Vector Machine (SVM)                            |
 | Feature Extraction | TF-IDF Vectorizer                                       |
@@ -35,22 +35,22 @@ It also includes NLP-based preprocessing (tokenization, stopword removal, and le
 
 ---
 
-### ⚙️ Setup Instructions
+###  Setup Instructions
 
-#### 1️⃣ Clone the Repository
+#### 1️. Clone the Repository
 
 ```bash
 git clone https://github.com/<your-username>/Email-Spam-Classifier.git
 cd Email-Spam-Classifier
 ```
 
-#### 2️⃣ Install Dependencies
+#### 2️. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-#### 3️⃣ Train the Model
+#### 3️. Train the Model
 
 Ensure your dataset file (`SMSSpamCollection`) is in the correct path, or update it in `train.py`.
 
@@ -65,7 +65,7 @@ This will generate:
 * `spam_classifier_model.pkl`
 * `tfidf_vectorizer.pkl`
 
-#### 4️⃣ Launch Streamlit App
+#### 4️. Launch Streamlit App
 
 ```bash
 streamlit run app.py
@@ -76,14 +76,14 @@ Open your browser at:
 
 ---
 
-### 💻 Example Output
+###  Example Output
 
 **Input:**
 
 > “Congratulations! You’ve won a $1000 gift card. Claim now!”
 
 **Output:**
-🚫 Prediction: **Spam** (98.45% confidence)
+ Prediction: **Spam** (98.45% confidence)
 
 ---
 
@@ -99,7 +99,7 @@ A Confusion Matrix heatmap is displayed after training to visualize performance.
 
 ---
 
-### 🧼 Preprocessing Steps
+###  Preprocessing Steps
 
 1. Lowercasing text
 2. Removing punctuation and non-alphanumeric characters
@@ -109,7 +109,7 @@ A Confusion Matrix heatmap is displayed after training to visualize performance.
 
 ---
 
-### 🌐 Deployment
+###  Deployment
 
 You can deploy your Streamlit app for free on [Streamlit Cloud](https://streamlit.io/cloud):
 
@@ -122,7 +122,7 @@ Your app link will look like:
 
 ---
 
-### 🧾 Folder Structure
+###  Folder Structure
 
 ```
 Email-Spam-Classifier/
@@ -139,14 +139,14 @@ Email-Spam-Classifier/
 
 ---
 
-### 📚 Dataset Used
+###  Dataset Used
 
 Dataset: **[SMS Spam Collection Dataset (UCI Machine Learning Repository)](https://archive.ics.uci.edu/ml/datasets/sms+spam+collection)**
 Contains 5,574 labeled messages — “ham” (legitimate) or “spam” (unwanted).
 
 ---
 
-### 🏁 Results
+###  Results
 
 * Optimized SVM using **GridSearchCV** (`C`, `kernel`, `gamma`)
 * Achieved **~95% accuracy**
@@ -155,7 +155,7 @@ Contains 5,574 labeled messages — “ham” (legitimate) or “spam” (unwant
 
 ---
 
-### ✨ Future Improvements
+###  Future Improvements
 
 * Add multilingual spam detection
 * Train on real email datasets

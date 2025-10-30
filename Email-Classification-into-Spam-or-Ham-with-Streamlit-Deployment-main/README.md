@@ -155,6 +155,12 @@ Contains 5,574 labeled messages — “ham” (legitimate) or “spam” (unwant
 
 ---
 
+###  Learning Outcomes
+- Applied end-to-end NLP workflow from data cleaning to model deployment.  
+- Understood TF-IDF vectorization and SVM optimization.  
+- Learned model deployment with Streamlit for real-time inference.  
+- Enhanced understanding of performance metrics like precision, recall, and F1-score.
+
 ###  Future Improvements
 
 * Add multilingual spam detection

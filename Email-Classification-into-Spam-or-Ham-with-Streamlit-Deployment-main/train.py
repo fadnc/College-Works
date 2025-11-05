@@ -62,4 +62,5 @@ with open("experiment_log.csv", "a", newline="") as f:
     writer = csv.writer(f)
     writer.writerow(["SVM", round(acc * 100, 2), round(prec, 2), round(rec, 2), round(f1, 2)])
 
-print("✅ Model training complete and artifacts saved.")
+print(" Model training complete and artifacts saved.")
+

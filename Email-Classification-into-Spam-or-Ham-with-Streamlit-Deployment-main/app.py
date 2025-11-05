@@ -30,27 +30,27 @@ option = st.sidebar.radio(
     ["Classify Message", "Model Dashboard", "Experiment Logs", "About"]
 )
 
-# ========== 1️⃣ CLASSIFY ==========
+# Classify
 if option == "Classify Message":
     st.subheader("🔍 Message Classification")
     user_input = st.text_area("Enter your message:", height=150)
 
     if st.button("Classify"):
         if user_input.strip() == "":
-            st.warning("⚠️ Please enter a message.")
+            st.warning(" Please enter a message.")
         else:
             input_vector = vectorizer.transform([user_input])
             prediction = model.predict(input_vector)[0]
             label = "Spam" if prediction == 1 else "Ham"
 
             if label == "Spam":
-                st.error("🚨 This message is likely Spam!")
+                st.error(" This message is likely Spam!")
             else:
-                st.success("✅ This message looks clean (Ham).")
+                st.success(" This message looks clean (Ham).")
 
-# ========== 2️⃣ DASHBOARD ==========
+# Dashboard
 elif option == "Model Dashboard":
-    st.subheader("📊 Model Performance Dashboard")
+    st.subheader(" Model Performance Dashboard")
 
     acc = round(metrics["accuracy"] * 100, 2)
     st.metric("Model Accuracy", f"{acc}%")
@@ -71,11 +71,11 @@ elif option == "Model Dashboard":
         wordcloud = WordCloud(width=700, height=400, background_color="white").generate(spam_text)
         st.image(wordcloud.to_array(), use_container_width=True)
     except:
-        st.info("⚠️ Word cloud not found. Run training script to generate it.")
+        st.info(" Word cloud not found. Run training script to generate it.")
 
-# ========== 3️⃣ EXPERIMENT LOGS ==========
+#  logs
 elif option == "Experiment Logs":
-    st.subheader("🧾 Experiment Tracking Logs")
+    st.subheader(" Experiment Tracking Logs")
 
     try:
         df_logs = pd.read_csv("experiment_log.csv", header=None, names=["Model", "Accuracy", "Precision", "Recall", "F1-Score"])
@@ -83,7 +83,7 @@ elif option == "Experiment Logs":
     except FileNotFoundError:
         st.warning("No experiment logs found. Train the model first.")
 
-# ========== 4️⃣ ABOUT ==========
+# about
 else:
     st.subheader("About the Project")
     st.markdown(
@@ -100,3 +100,4 @@ else:
         **Developed by:** Fadhil  
         """
     )
+
